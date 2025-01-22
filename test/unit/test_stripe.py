@@ -181,7 +181,7 @@ class TestObjectInitialization:
 
 
 @pytest.mark.unit
-class TestSetBoundaryProperties:
+class TestPropertyBoundaries:
     class TestSetHorizontalRelativeToSeed:
         def test_left_at_seed(self):
             stripe = Stripe(
@@ -381,7 +381,7 @@ class TestSetBoundaryProperties:
             with pytest.raises(RuntimeError, match="horizontal stripe bounds have already been set"):
                 stripe.set_vertical_bounds(2, 6)
 
-    class TestSetMethods:
+    class TestSetterMethods:
         def test_set_horizontal(self):
             stripe = Stripe(
                 seed=5, top_pers=5.0, horizontal_bounds=(1, 4), vertical_bounds=(1, 4), where="upper_triangular"
@@ -433,8 +433,8 @@ def statistical_stripe(
 
 
 @pytest.mark.unit
-class TestStatistics:
-    def test_statistical_manual(self):
+class TestDescriptiveStatistics:
+    def test_initialize_with_biodescriptors(self):
         stripe = statistical_stripe()
 
         assert np.isclose(stripe.inner_mean, 1.0)
