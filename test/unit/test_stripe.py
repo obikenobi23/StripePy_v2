@@ -178,7 +178,7 @@ class TestSetHorizontalRelativeToSeed:
 class TestSetHorizontalRelativeToSelf:
     def test_horizontal_size_0(self):
         stripe = Stripe(
-            seed=5, top_pers=5.0, horizontal_bounds=(5, 5), vertical_bounds=(1, 4), where="upper_triangular"
+            seed=5, top_pers=5.0, horizontal_bounds=(5, 5), vertical_bounds=(1, 5), where="upper_triangular"
         )
 
         assert stripe.seed == 5
@@ -186,11 +186,11 @@ class TestSetHorizontalRelativeToSelf:
         assert stripe.left_bound == 5
         assert stripe.right_bound == 5
         assert stripe.top_bound == 1
-        assert stripe.bottom_bound == 4
+        assert stripe.bottom_bound == 5
 
     def test_horizontal_size_1(self):
         stripe = Stripe(
-            seed=5, top_pers=5.0, horizontal_bounds=(5, 6), vertical_bounds=(1, 4), where="upper_triangular"
+            seed=5, top_pers=5.0, horizontal_bounds=(5, 6), vertical_bounds=(1, 5), where="upper_triangular"
         )
 
         assert stripe.seed == 5
@@ -198,19 +198,15 @@ class TestSetHorizontalRelativeToSelf:
         assert stripe.left_bound == 5
         assert stripe.right_bound == 6
         assert stripe.top_bound == 1
-        assert stripe.bottom_bound == 4
+        assert stripe.bottom_bound == 5
 
     def test_left_and_right_cross_themselves(self):
-        stripe = Stripe(
-            seed=5, top_pers=5.0, horizontal_bounds=(6, 5), vertical_bounds=(1, 4), where="upper_triangular"
-        )
-
-        assert stripe.seed == 5
-        assert stripe.top_persistence == 5.0
-        assert stripe.left_bound == 6
-        assert stripe.right_bound == 5
-        assert stripe.top_bound == 1
-        assert stripe.bottom_bound == 4
+        with pytest.raises(
+            ValueError, match="horizontal bounds must enclose the seed position: seed=5, left_bound=6, right_bound=5"
+        ):
+            stripe = Stripe(
+                seed=5, top_pers=5.0, horizontal_bounds=(6, 5), vertical_bounds=(1, 5), where="upper_triangular"
+            )
 
 
 @pytest.mark.unit
