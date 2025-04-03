@@ -130,7 +130,7 @@ def update_plot(n_clicks, chromosome_name, colorMap, normalization, filepath, re
     sel = f.fetch(chromosome_name, normalization=normalization)
     frame = sel.to_numpy()
 
-    np.log(frame, out=frame, where=np.isnan(frame) == False)
+    np.log10(frame, out=frame, where=np.isnan(frame) == False)
     under_lowest_real_value = np.min(frame[np.isfinite(frame)]) - abs(np.min(frame[np.isfinite(frame)]))
     # isfinite() dicounts nan, inf and -inf
 
