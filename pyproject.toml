@@ -66,12 +66,15 @@ dependencies = [
 [project.optional-dependencies]
 
 all = [
-    "stripepy-hic",
     "colorama >=0.4, <0.5",
     "matplotlib >=3.8, <4",
     "rich >=13.9, <14",
-    "plotly >=6.0.0",
-    "dash >=2.18.0",
+]
+
+gui = [
+  "plotly >=6.0.0, <7",
+  "dash >=3, <4",
+  "dash-bootstrap-components >=2, <3",
 ]
 
 test = [
@@ -82,7 +85,7 @@ test = [
 ]
 
 dev = [
-    "stripepy-hic[all,test]",
+    "stripepy-hic[test]",
     "black[jupyter]",
     "build",
     "isort",
